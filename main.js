@@ -39,27 +39,21 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-// ... existing scene and camera setup ...
 
-// Add ambient light for overall scene illumination
-const keyLight = new THREE.DirectionalLight(0xffffff, 5);
-keyLight.position.set(5, 5, 5);
-scene.add(keyLight);
-
-// Fill light (softer light from opposite side)
-const fillLight = new THREE.DirectionalLight(0xffffff, 4);
-fillLight.position.set(-5, -5, -5);
-scene.add(fillLight);
-
-// Rim light (creates highlight edge)
-const rimLight = new THREE.DirectionalLight(0xffffff, 4);
-rimLight.position.set(5, 0, -5);
-scene.add(rimLight);
-
-// Ambient light for overall illumination
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambientLight);
 
+let directional = new THREE.DirectionalLight(0xffffff,4)
+directional.position.set(10,10,10)
+scene.add(directional)
+// const helper = new THREE.DirectionalLightHelper( directional, 2 );
+// scene.add( helper );
+
+let point = new THREE.PointLight(0xffffff,1,10,2)
+directional.position.set(1,-1,1);
+scene.add(point);
+const pointLightHelper = new THREE.PointLightHelper( point, 4);
+scene.add( pointLightHelper );
 
 let loader = new THREE.TextureLoader();
 let color = loader.load("./text/color.jpg")
